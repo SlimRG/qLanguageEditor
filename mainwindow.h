@@ -3,8 +3,15 @@
 
 #include <QMainWindow>
 #include <QTableWidget>
+#include <QPair>
+#include <QFileDialog>
+#include <QMessageBox>
 
-#include "langutils.h"
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+
+#include "baseutils.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,14 +30,22 @@ private slots:
 
     void on_addButton_clicked();
 
-    void on_tableWidget_itemChanged(QTableWidgetItem* item);
+    void on_tableWidget_itemChanged();
 
-    void on_tableWidget_currentItemChanged(QTableWidgetItem *current, QTableWidgetItem *previous);
+    void on_langBox_currentTextChanged(const QString &arg1);
+
+    void on_saveButton_clicked();
+
+    void on_loadButton_clicked();
 
 private:
     Ui::MainWindow *ui;
+    TDictionary dictionary;
+    QString prevLang;
 
-    QMap<QString, QMap<QString, QString>> dictionary;
+    // Graphic functions
+    void setEnabledElements(bool isEnable);
+    void initLangBox(QSet<QString>& langs);
 
 };
 #endif // MAINWINDOW_H
